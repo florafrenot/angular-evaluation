@@ -1,0 +1,104 @@
+<div>
+    <h3>Créer un nouveau salon</h3>
+    <form
+      class="formulaire"
+      [formGroup]="formulaire"
+      (ngSubmit)="onAjoutSalon()"
+    >
+      <mat-form-field>
+        <mat-label>Nom du salon</mat-label>
+        <input matInput placeholder="Ex. Angular" formControlName="nom" />
+  
+        @if(formulaire.get("nom")?.hasError("required")) {
+        <mat-error>Le nom du salon est obligatoire</mat-error>
+  
+        } @else if (formulaire.get("nom")?.hasError("minlength")) {
+        <mat-error>Le nom du salon doit avoir 3 caractères minimum</mat-error>
+  
+        } @else if (formulaire.get("nom")?.hasError("maxlength")) {
+        <mat-error>Le nom du salon doit avoir 50 caractères maximum</mat-error>
+        }
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Description du salon</mat-label>
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Ex. Salon d'échanges d'informations précieuses entre les étudiants"
+        ></textarea>
+        <mat-error>La description ne peut dépasser 150 caractères</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field>
+        <mat-label>Logo du salon</mat-label>
+        <input
+          matInput
+          placeholder="Ex. http://domain.com/logo.jpg"
+          formControlName="urlImage"
+        />
+      </mat-form-field>
+  
+      <div class="actions">
+        <button type="submit" mat-flat-button color="primary">
+          Ajouter le salon
+        </button>
+  
+        <button
+          type="button"
+          mat-flat-button
+          color="accent"
+          routerLink="/principal"
+        >
+          Retour
+        </button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <h3>Voir les salons du serveur</h3>
+  
+    <div class="example-table-container">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        matSortActive="nom"
+        matSortDisableClear
+        matSortDirection="asc"
+      >
+        <ng-container matColumnDef="logo">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let salon">
+            <img class="logo" [attr.src]="salon.urlImage" />
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="nom">
+          <th
+            mat-header-cell
+            mat-sort-header
+            *matHeaderCellDef
+            sortActionDescription="Sort by nom"
+          >
+            Nom
+          </th>
+          <td mat-cell *matCellDef="let salon">{{ salon.nom }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let salon">{{ salon.description }}</td>
+        </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="['logo', 'nom', 'description']"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['logo', 'nom', 'description']"
+        ></tr>
+      </table>
+    </div>
+  </div>
+  

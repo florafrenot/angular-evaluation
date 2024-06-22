@@ -1,0 +1,57 @@
+<main>
+  <aside>
+    <div class="liste-serveur">
+      <div
+        class="serveur"
+        routerLink="/ajout-serveur"
+        matTooltip="Créer un nouveau serveur"
+        matTooltipPosition="right"
+      >
+        <mat-icon fontIcon="add_circle"></mat-icon>
+      </div>
+
+      @for (serveur of listeServeur; track serveur._id) {
+
+      <div
+        class="serveur"
+        [matTooltip]="serveur.nom"
+        matTooltipPosition="right"
+      >
+        <img [attr.src]="serveur.urlLogo" (click)="afficherSalons(serveur._id)" />
+        
+      </div>
+      }
+    </div>
+
+    <div class="info-profil">
+      <img
+        class="avatar"
+        src="https://play-lh.googleusercontent.com/0goocG7RJZDZ41ShfBPl-h7ctwHKHjqzn4nSImyL8_RWyXqeYNKw-CdGAKhgPGZG5Es"
+      />
+      <span>John DOE </span>
+      <mat-icon
+        class="bouton-profil"
+        fontIcon="settings"
+        routerLink="/profil"
+      ></mat-icon>
+    </div>
+  </aside>
+
+  <!-- Affichage des salons -->
+  @if (salonAffichage && selectionneServeurId)  {
+    <div>
+      <app-liste-salons [serveurId]="selectionneServeurId"></app-liste-salons>
+    </div>
+    }
+
+  <div class="liste-message">
+    <div class="message">
+      <img
+        class="image"
+        width="100%"
+        height="100%"
+        src="https://welovedevs.com/_next/image?url=https%3A%2F%2Fprocess.filestackapi.com%2Foutput%3Dquality%3A80%2Fno_metadata%2Fauto_image%2Fcompress%2FM4yGTmrYRE6o8IGXYKjF&w=3840&q=75"
+      />
+    </div>
+  </div>
+</main>

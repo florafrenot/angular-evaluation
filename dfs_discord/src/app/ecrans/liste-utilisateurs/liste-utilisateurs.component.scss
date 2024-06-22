@@ -1,0 +1,13 @@
+
+.container {
+    display: block;
+    width: 800px;
+    margin: auto;
+    padding: 40px 20px;
+
+    .actions {
+        button {
+            width:150px;
+        }
+    }
+}

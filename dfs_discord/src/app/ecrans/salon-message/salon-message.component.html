@@ -1,0 +1,52 @@
+<div class="container">
+  <h3>Bienvenue au salon</h3>
+  <button
+    type="button"
+    mat-flat-button
+    color="accent"
+    routerLink="/principal"
+  >
+  Retour
+  </button>
+
+  <div class="liste-message">
+    @for (message of listeMessages; track message._id) {
+        
+      <div class="message mat-elevation-z2">
+        <div class="partie-message">
+          <div class="utilisateur" [ngClass]="{ 'blue-text': isBlue(message.utilisateurId), 'purple-text': !isBlue(message.utilisateurId) }">
+            <mat-icon>person</mat-icon>
+            {{ message.utilisateurId }}
+          </div>
+          <mat-divider></mat-divider>
+          <p class="contenu">
+            {{ message.contenu }}
+          </p>
+        </div>
+      </div>
+    }
+
+
+    <form 
+      class="formulaire-message"
+      [formGroup]="formulaire"
+      (ngSubmit)="onAjoutMessage()"
+    >
+      <mat-form-field>
+        <mat-label>Message</mat-label>
+        <textarea matInput formControlName="contenu"></textarea>
+        @if(formulaire.get("contenu")?.hasError("minLenght")) {
+        <mat-error>Vous devez saisir un contenu</mat-error>
+        }
+      </mat-form-field>
+
+
+
+      <div class="actions">
+        <button type="submit" mat-flat-button color="primary">
+          Envoyer
+        </button>
+      </div>
+    </form>
+
+</div>

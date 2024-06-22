@@ -1,0 +1,32 @@
+<div
+    class="salon"
+    [routerLink]="['/ajout-salon', serveurId]"
+    matTooltip="Créer un nouveau salon"
+    matTooltipPosition="right"
+  >
+    <mat-icon fontIcon="add_circle"></mat-icon>
+</div>
+
+  @for (salon of listeSalon; track salon._id) {
+
+  <div
+    class="salon"
+    [matTooltip]="salon.nom"
+    matTooltipPosition="right" >
+    <img [attr.src]="salon.urlImage" [routerLink]="['/message', salon._id]"/>
+  </div>
+  }
+
+  <!-- <p [routerLink]="['/', serveurId, 'utilisateurs']">Voir les utilisateurs</p> -->
+  <!-- voir les utilisateurs du serveur -->
+  <div class="bouton-liste-utilisateurs">
+    <a mat-fab extended [routerLink]="['/', serveurId, 'utilisateurs']">
+      <mat-icon>group</mat-icon>
+      Voir les utilisateurs
+    </a>
+  </div>
+<div class="liste-messages">
+  @if (messageAffiche == true) {
+    <app-salon-message [salonId]="salonSelectionneId"></app-salon-message>
+  }
+</div>  
